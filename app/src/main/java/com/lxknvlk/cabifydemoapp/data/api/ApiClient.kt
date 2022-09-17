@@ -1,9 +1,10 @@
 package com.lxknvlk.cabifydemoapp.data.api
 
-class ApiClient {
+import javax.inject.Inject
 
-    private val retrofitClient = RetrofitClient()
-    private val apiInterface: ApiInterface = retrofitClient.getInstance().create(ApiInterface::class.java)
+class ApiClient  @Inject constructor(
+    private val apiInterface: ApiInterface
+) {
 
     suspend fun getProducts(): Any {
         try {

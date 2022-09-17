@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.lxknvlk.cabifydemoapp.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     companion object {
@@ -29,6 +31,8 @@ class MainFragment : Fragment() {
         viewModel.productsLiveData.observe(viewLifecycleOwner) { products ->
             products.toString()
         }
+
+        viewModel.getProducts()
     }
 
 }
