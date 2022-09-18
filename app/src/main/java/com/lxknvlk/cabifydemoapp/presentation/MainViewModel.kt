@@ -1,5 +1,6 @@
 package com.lxknvlk.cabifydemoapp.presentation
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,8 +21,12 @@ class MainViewModel @Inject constructor(
     private val checkoutUseCase: CheckoutUseCase
 ) : ViewModel() {
 
-    val productsLiveData = MutableLiveData<List<ProductEntity>?>()
-    val receiptLiveData = MutableLiveData<String>()
+    private val productsMutableLiveData = MutableLiveData<List<ProductEntity>?>()
+    val productsLiveData : LiveData<List<ProductEntity>?> by this::productsMutableLiveData
+
+    private val receiptMutableLiveData = MutableLiveData<String>()
+    val receiptLiveData : LiveData<String> by this::receiptMutableLiveData
+
 
     private val shoppingCart = ShoppingCart()
 
@@ -32,7 +37,7 @@ class MainViewModel @Inject constructor(
             //simulating slower server request to show nice loading indicator
             Thread.sleep(2000)
 
-            productsLiveData.postValue(products)
+            productsMutableLiveData.postValue(products)
         }
     }
 
@@ -46,7 +51,6 @@ class MainViewModel @Inject constructor(
 
     fun checkout(){
         val receipt = checkoutUseCase.checkout(shoppingCart)
-
-        receiptLiveData.postValue(receipt)
+        receiptMutableLiveData.postValue(receipt)
     }
 }
