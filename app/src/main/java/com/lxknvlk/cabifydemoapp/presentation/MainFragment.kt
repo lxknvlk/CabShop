@@ -69,7 +69,6 @@ class MainFragment : Fragment() {
         }
 
         viewModel.receiptLiveData.observe(viewLifecycleOwner) { receipt ->
-            //show receipt in popup
             val mAlertDialog = context?.let { AlertDialog.Builder(it) }
             mAlertDialog?.setMessage(receipt)
             mAlertDialog?.setTitle("Your receipt")

@@ -1,6 +1,7 @@
 package com.lxknvlk.cabifydemoapp.domain.discounts
 
 import com.lxknvlk.cabifydemoapp.domain.entity.Product
+import com.lxknvlk.cabifydemoapp.domain.entity.ProductCode
 import com.lxknvlk.cabifydemoapp.domain.entity.ShoppingCart
 import javax.inject.Inject
 
@@ -18,9 +19,9 @@ class DiscountCalculator @Inject constructor(
 
         productList.forEach {
             when (it.code) {
-                "VOUCHER" -> vouchers.add(it)
-                "MUG" -> mugs.add(it)
-                "TSHIRT" -> tshirts.add(it)
+                ProductCode.VOUCHER -> vouchers.add(it)
+                ProductCode.MUG -> mugs.add(it)
+                ProductCode.TSHIRT -> tshirts.add(it)
             }
         }
 
