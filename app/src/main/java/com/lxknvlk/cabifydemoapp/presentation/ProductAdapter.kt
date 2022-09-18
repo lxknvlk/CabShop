@@ -48,8 +48,6 @@ class ProductAdapter(private val productList: List<ProductEntity>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.tvName.text = productList[position].name
         viewHolder.tvPrice.text = "€ ${productList[position].price}"
-
-
     }
 
     override fun getItemCount() = productList.size

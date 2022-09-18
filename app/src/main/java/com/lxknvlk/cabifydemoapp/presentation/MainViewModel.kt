@@ -21,6 +21,10 @@ class MainViewModel @Inject constructor(
     fun getProducts(){
         viewModelScope.launch(coroutineDispatcherIO) {
             val products: List<ProductEntity>? = getProductsUseCase.getProducts()
+
+            //simulating slower server request to show nice loading indicator
+            Thread.sleep(3000)
+
             productsLiveData.postValue(products)
         }
     }
