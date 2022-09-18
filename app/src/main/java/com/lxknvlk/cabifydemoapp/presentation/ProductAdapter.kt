@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lxknvlk.cabifydemoapp.R
 import com.lxknvlk.cabifydemoapp.domain.ProductEntity
 
-class ProductAdapter(private val productList: List<ProductEntity>) :
+class ProductAdapter(
+    private val productList: MutableList<ProductEntity>,
+    private val addProductCallback: (ProductEntity) -> Unit,
+    private val removeProductCallback: (ProductEntity) -> Unit,
+) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -25,29 +29,40 @@ class ProductAdapter(private val productList: List<ProductEntity>) :
             tvPrice = view.findViewById(R.id.tvPrice)
             btnPlus = view.findViewById(R.id.btnPlus)
             btnMinus = view.findViewById(R.id.btnMinus)
-
-            btnPlus.setOnClickListener {
-                val amount = tvAmount.text.toString().toInt() + 1
-                tvAmount.text = amount.toString()
-            }
-
-            btnMinus.setOnClickListener {
-                var amount = tvAmount.text.toString().toInt() - 1
-                if (amount < 0) amount = 0
-                tvAmount.text = amount.toString()
-            }
         }
     }
 
+    fun addItems(newProducts: List<ProductEntity>){
+        productList.clear()
+        productList.addAll(newProducts)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.product_list_item, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.product_list_item, viewGroup, false)
 
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.tvName.text = productList[position].name
-        viewHolder.tvPrice.text = "€ ${productList[position].price}"
+        val product =  productList[position]
+        viewHolder.tvName.text = product.name
+        viewHolder.tvPrice.text = "€${product.price}"
+
+
+        viewHolder.btnPlus.setOnClickListener {
+            val amount = viewHolder.tvAmount.text.toString().toInt() + 1
+            viewHolder.tvAmount.text = amount.toString()
+            addProductCallback(product)
+        }
+
+        viewHolder.btnMinus.setOnClickListener {
+            var amount = viewHolder.tvAmount.text.toString().toInt() - 1
+            if (amount < 0) amount = 0
+            viewHolder.tvAmount.text = amount.toString()
+            removeProductCallback(product)
+        }
     }
 
     override fun getItemCount() = productList.size

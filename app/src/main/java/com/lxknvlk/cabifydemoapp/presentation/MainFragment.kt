@@ -1,11 +1,13 @@
 package com.lxknvlk.cabifydemoapp.presentation
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,23 +50,44 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        productAdapter = ProductAdapter(mutableListOf(), this::onItemAdded, this::onItemRemoved)
+        recyclerview.adapter = productAdapter
+
         btnCheckout.setOnClickListener {
-            //take amounts and codes from list
-            //and show dialogue with receipt
+            viewModel.checkout()
         }
 
         viewModel.productsLiveData.observe(viewLifecycleOwner) { products: List<ProductEntity>? ->
             if (products == null) {
                 Toast.makeText(context, "Error getting products", Toast.LENGTH_SHORT).show()
             } else {
-                productAdapter = ProductAdapter(products)
-                recyclerview.adapter = productAdapter
+                productAdapter?.addItems(products)
                 piLoader.visibility = View.INVISIBLE
                 btnCheckout.visibility = View.VISIBLE
             }
         }
 
+        viewModel.receiptLiveData.observe(viewLifecycleOwner) { receipt ->
+            //show receipt in popup
+            val mAlertDialog = context?.let { AlertDialog.Builder(it) }
+            mAlertDialog?.setMessage(receipt)
+            mAlertDialog?.setTitle("Your receipt")
+            mAlertDialog?.setPositiveButton("OK") { dialogInterface: DialogInterface, _: Int ->
+                dialogInterface.dismiss()
+            }
+            mAlertDialog?.show()
+        }
+
         viewModel.getProducts()
     }
 
+
+
+    private fun onItemAdded(product: ProductEntity) {
+        viewModel.addProduct(product)
+    }
+
+    private fun onItemRemoved(product: ProductEntity) {
+        viewModel.removeProduct(product)
+    }
 }
