@@ -16,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase,
-    private val coroutineDispatcherIO: CoroutineDispatcher
+    private val coroutineDispatcherIO: CoroutineDispatcher,
+    private val checkoutUseCase: CheckoutUseCase
 ) : ViewModel() {
 
     val productsLiveData = MutableLiveData<List<ProductEntity>?>()
@@ -44,8 +45,6 @@ class MainViewModel @Inject constructor(
     }
 
     fun checkout(){
-        val checkoutUseCase = CheckoutUseCase()
-
         val receipt = checkoutUseCase.checkout(shoppingCart)
 
         receiptLiveData.postValue(receipt)

@@ -3,7 +3,13 @@ package com.lxknvlk.cabifydemoapp.data.di
 import com.lxknvlk.cabifydemoapp.data.api.ApiClient
 import com.lxknvlk.cabifydemoapp.data.api.ApiInterface
 import com.lxknvlk.cabifydemoapp.data.api.RetrofitClient
+import com.lxknvlk.cabifydemoapp.domain.CheckoutUseCase
 import com.lxknvlk.cabifydemoapp.domain.GetProductsUseCase
+import com.lxknvlk.cabifydemoapp.domain.ReceiptCreator
+import com.lxknvlk.cabifydemoapp.domain.discounts.DiscountCalculator
+import com.lxknvlk.cabifydemoapp.domain.discounts.MugDiscount
+import com.lxknvlk.cabifydemoapp.domain.discounts.TShirtDiscount
+import com.lxknvlk.cabifydemoapp.domain.discounts.VoucherDiscount
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,5 +46,42 @@ class DiModule {
     @Provides
     fun provideCoroutineDispatcherIO(): CoroutineDispatcher {
         return Dispatchers.IO
+    }
+
+    @Provides
+    fun provideVoucherDiscount(): VoucherDiscount{
+        return VoucherDiscount()
+    }
+
+    @Provides
+    fun provideTShirtDiscount(): TShirtDiscount{
+        return TShirtDiscount()
+    }
+
+    @Provides
+    fun provideMugDiscount(): MugDiscount{
+        return MugDiscount()
+    }
+
+    @Provides
+    fun provideReceiptCreator(): ReceiptCreator{
+        return ReceiptCreator()
+    }
+
+    @Provides
+    fun provideCheckoutUseCase(
+        discountCalculator: DiscountCalculator,
+        receiptCreator: ReceiptCreator
+    ): CheckoutUseCase{
+        return CheckoutUseCase(discountCalculator, receiptCreator)
+    }
+
+    @Provides
+    fun provideDiscountCalculator(
+        voucherDiscount: VoucherDiscount,
+        tShirtDiscount: TShirtDiscount,
+        mugDiscount: MugDiscount
+    ): DiscountCalculator{
+        return DiscountCalculator(voucherDiscount, tShirtDiscount, mugDiscount)
     }
 }
