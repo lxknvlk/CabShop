@@ -5,7 +5,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
+@Singleton
 class RetrofitClient {
     fun getInstance(): Retrofit {
         val mHttpLoggingInterceptor = HttpLoggingInterceptor()

@@ -1,7 +1,9 @@
 package com.lxknvlk.cabifydemoapp.data.api
 
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ApiClient  @Inject constructor(
     private val apiInterface: ApiInterface
 ) {

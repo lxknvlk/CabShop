@@ -58,11 +58,12 @@ class MainFragment : Fragment() {
         }
 
         viewModel.productsLiveData.observe(viewLifecycleOwner) { products: List<ProductEntity>? ->
+            piLoader.visibility = View.INVISIBLE
+
             if (products == null) {
                 Toast.makeText(context, "Error getting products", Toast.LENGTH_SHORT).show()
             } else {
                 productAdapter?.addItems(products)
-                piLoader.visibility = View.INVISIBLE
                 btnCheckout.visibility = View.VISIBLE
             }
         }
