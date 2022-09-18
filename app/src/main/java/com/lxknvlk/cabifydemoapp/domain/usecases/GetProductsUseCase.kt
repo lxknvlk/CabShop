@@ -1,16 +1,14 @@
 package com.lxknvlk.cabifydemoapp.domain.usecases
 
-import com.lxknvlk.cabifydemoapp.data.api.ApiClient
-import com.lxknvlk.cabifydemoapp.data.api.ProductResponse
 import com.lxknvlk.cabifydemoapp.domain.entity.Product
+import com.lxknvlk.cabifydemoapp.domain.interfaces.ProductRepositoryRemote
 import javax.inject.Inject
 
 
 class GetProductsUseCase @Inject constructor(
-    private val apiClient: ApiClient
+    private val productRepositoryRemote: ProductRepositoryRemote
 ) {
-    suspend fun getProducts(): List<Product>?{
-        val productResponse: ProductResponse? = apiClient.getProducts()
-        return productResponse?.products
+    suspend fun getProducts(): List<Product>? {
+        return productRepositoryRemote.getProducts()
     }
 }

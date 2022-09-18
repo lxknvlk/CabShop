@@ -3,6 +3,7 @@ package com.lxknvlk.cabifydemoapp.data.di
 import com.lxknvlk.cabifydemoapp.data.api.ApiClient
 import com.lxknvlk.cabifydemoapp.data.api.ApiInterface
 import com.lxknvlk.cabifydemoapp.data.api.RetrofitClient
+import com.lxknvlk.cabifydemoapp.data.repository.ProductRepositoryRemoteImpl
 import com.lxknvlk.cabifydemoapp.domain.usecases.CheckoutUseCase
 import com.lxknvlk.cabifydemoapp.domain.usecases.GetProductsUseCase
 import com.lxknvlk.cabifydemoapp.domain.utils.ReceiptCreator
@@ -10,6 +11,7 @@ import com.lxknvlk.cabifydemoapp.domain.discounts.DiscountCalculator
 import com.lxknvlk.cabifydemoapp.domain.discounts.MugDiscount
 import com.lxknvlk.cabifydemoapp.domain.discounts.TShirtDiscount
 import com.lxknvlk.cabifydemoapp.domain.discounts.VoucherDiscount
+import com.lxknvlk.cabifydemoapp.domain.interfaces.ProductRepositoryRemote
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,10 +39,17 @@ class DiModule {
     }
 
     @Provides
-    fun provideGetProductsUseCase(
+    fun provideProductRepositoryRemote(
         apiClient: ApiClient
+    ): ProductRepositoryRemote {
+        return ProductRepositoryRemoteImpl(apiClient)
+    }
+
+    @Provides
+    fun provideGetProductsUseCase(
+        productRepositoryRemote: ProductRepositoryRemote
     ): GetProductsUseCase {
-        return GetProductsUseCase(apiClient)
+        return GetProductsUseCase(productRepositoryRemote)
     }
 
     @Provides
