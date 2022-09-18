@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lxknvlk.cabifydemoapp.data.api.ProductResponse
 import com.lxknvlk.cabifydemoapp.domain.CheckoutUseCase
 import com.lxknvlk.cabifydemoapp.domain.GetProductsUseCase
 import com.lxknvlk.cabifydemoapp.domain.ProductEntity
-import com.lxknvlk.cabifydemoapp.domain.ShoppingCart
+import com.lxknvlk.cabifydemoapp.domain.purchase.ShoppingCart
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch

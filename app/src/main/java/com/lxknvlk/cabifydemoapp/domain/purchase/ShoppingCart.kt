@@ -1,4 +1,6 @@
-package com.lxknvlk.cabifydemoapp.domain
+package com.lxknvlk.cabifydemoapp.domain.purchase
+
+import com.lxknvlk.cabifydemoapp.domain.ProductEntity
 
 class ShoppingCart {
     private val products = mutableListOf<ProductEntity>()
@@ -13,5 +15,10 @@ class ShoppingCart {
 
     fun getCartContents(): List<ProductEntity>{
         return products
+    }
+
+    fun addProducts(newProducts: List<ProductEntity>){
+        products.clear()
+        products.addAll(newProducts)
     }
 }

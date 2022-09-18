@@ -5,7 +5,7 @@ import com.lxknvlk.cabifydemoapp.data.api.ApiInterface
 import com.lxknvlk.cabifydemoapp.data.api.RetrofitClient
 import com.lxknvlk.cabifydemoapp.domain.CheckoutUseCase
 import com.lxknvlk.cabifydemoapp.domain.GetProductsUseCase
-import com.lxknvlk.cabifydemoapp.domain.ReceiptCreator
+import com.lxknvlk.cabifydemoapp.domain.purchase.ReceiptCreator
 import com.lxknvlk.cabifydemoapp.domain.discounts.DiscountCalculator
 import com.lxknvlk.cabifydemoapp.domain.discounts.MugDiscount
 import com.lxknvlk.cabifydemoapp.domain.discounts.TShirtDiscount
@@ -64,7 +64,7 @@ class DiModule {
     }
 
     @Provides
-    fun provideReceiptCreator(): ReceiptCreator{
+    fun provideReceiptCreator(): ReceiptCreator {
         return ReceiptCreator()
     }
 

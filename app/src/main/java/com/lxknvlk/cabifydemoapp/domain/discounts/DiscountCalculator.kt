@@ -1,6 +1,7 @@
 package com.lxknvlk.cabifydemoapp.domain.discounts
 
 import com.lxknvlk.cabifydemoapp.domain.ProductEntity
+import com.lxknvlk.cabifydemoapp.domain.purchase.ShoppingCart
 import javax.inject.Inject
 
 class DiscountCalculator @Inject constructor(
@@ -8,7 +9,9 @@ class DiscountCalculator @Inject constructor(
     private val tShirtDiscount: TShirtDiscount,
     private val mugDiscount: MugDiscount
 ) {
-    fun applyDiscounts(productList: List<ProductEntity>): List<ProductEntity>{
+    fun applyDiscounts(shoppingCart: ShoppingCart): ShoppingCart {
+        val productList = shoppingCart.getCartContents()
+
         val vouchers = mutableListOf<ProductEntity>()
         val mugs = mutableListOf<ProductEntity>()
         val tshirts = mutableListOf<ProductEntity>()
@@ -30,6 +33,9 @@ class DiscountCalculator @Inject constructor(
         finalProducts.addAll(finalTShirts)
         finalProducts.addAll(finalMugs)
 
-        return finalProducts
+        val finalShoppingCart = ShoppingCart()
+        finalShoppingCart.addProducts(finalProducts)
+
+        return finalShoppingCart
     }
 }
