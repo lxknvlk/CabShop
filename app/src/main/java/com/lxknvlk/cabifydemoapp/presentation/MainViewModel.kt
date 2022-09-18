@@ -50,6 +50,6 @@ class MainViewModel @Inject constructor(
 
     fun checkout(){
         val receipt = checkoutUseCase.checkout(shoppingCart)
-        receiptMutableLiveData.postValue(receipt)
+        receiptMutableLiveData.postValue(receipt.orderText)
     }
 }
