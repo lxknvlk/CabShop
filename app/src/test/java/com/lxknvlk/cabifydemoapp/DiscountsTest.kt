@@ -9,10 +9,9 @@ import com.lxknvlk.cabifydemoapp.domain.entity.ProductCode
 import com.lxknvlk.cabifydemoapp.domain.entity.ShoppingCart
 import com.lxknvlk.cabifydemoapp.domain.usecases.CheckoutUseCase
 import com.lxknvlk.cabifydemoapp.domain.utils.ReceiptCreator
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Test
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -33,7 +32,7 @@ class DiscountsTest {
     private val PRODUCT_MUG = Product(ProductCode.MUG, "VOUCHER", 7.50)
 
     @Before
-    fun setup(){
+    fun setup() {
         voucherDiscount = VoucherDiscount()
         mugDiscount = MugDiscount()
         tShirtDiscount = TShirtDiscount()
@@ -107,5 +106,60 @@ class DiscountsTest {
         val receipt = checkoutUseCase.checkout(shoppingCart)
 
         assertEquals(receipt.totalPrice, 74.50, 0.0)
+    }
+
+    @Test
+    fun testVoucherDiscount() {
+        val resultProductListOne = voucherDiscount.applyDiscount(listOf(PRODUCT_VOUCHER))
+        assertEquals(resultProductListOne[0].price, PRODUCT_VOUCHER.price, 0.0)
+
+        val resultProductListTwo = voucherDiscount.applyDiscount(listOf(PRODUCT_VOUCHER, PRODUCT_VOUCHER))
+        assertEquals(resultProductListTwo[0].price, PRODUCT_VOUCHER.price, 0.0)
+        assertEquals(resultProductListTwo[1].price, 0.0, 0.0)
+
+        val resultProductListThree = voucherDiscount.applyDiscount(listOf(PRODUCT_VOUCHER, PRODUCT_VOUCHER, PRODUCT_VOUCHER))
+        assertEquals(resultProductListThree[0].price, PRODUCT_VOUCHER.price, 0.0)
+        assertEquals(resultProductListThree[1].price, 0.0, 0.0)
+        assertEquals(resultProductListThree[2].price, PRODUCT_VOUCHER.price, 0.0)
+
+        val resultProductListFour = voucherDiscount.applyDiscount(listOf(PRODUCT_VOUCHER, PRODUCT_VOUCHER, PRODUCT_VOUCHER, PRODUCT_VOUCHER))
+        assertEquals(resultProductListFour[0].price, PRODUCT_VOUCHER.price, 0.0)
+        assertEquals(resultProductListFour[1].price, 0.0, 0.0)
+        assertEquals(resultProductListFour[2].price, PRODUCT_VOUCHER.price, 0.0)
+        assertEquals(resultProductListFour[3].price, 0.0, 0.0)
+    }
+
+    @Test
+    fun testTShirtDiscount(){
+        val resultProductListOne = tShirtDiscount.applyDiscount(listOf(PRODUCT_TSHIRT))
+        assertEquals(resultProductListOne[0].price, PRODUCT_TSHIRT.price, 0.0)
+
+        val resultProductListTwo = tShirtDiscount.applyDiscount(listOf(PRODUCT_TSHIRT, PRODUCT_TSHIRT))
+        assertEquals(resultProductListTwo[0].price, PRODUCT_TSHIRT.price, 0.0)
+        assertEquals(resultProductListTwo[1].price, PRODUCT_TSHIRT.price, 0.0)
+
+        val resultProductListThree = tShirtDiscount.applyDiscount(listOf(PRODUCT_TSHIRT, PRODUCT_TSHIRT, PRODUCT_TSHIRT))
+        assertEquals(resultProductListThree[0].price, 19.00, 0.0)
+        assertEquals(resultProductListThree[1].price, 19.00, 0.0)
+        assertEquals(resultProductListThree[2].price, 19.00, 0.0)
+
+        val resultProductListFour = tShirtDiscount.applyDiscount(listOf(PRODUCT_TSHIRT, PRODUCT_TSHIRT, PRODUCT_TSHIRT, PRODUCT_TSHIRT))
+        assertEquals(resultProductListFour[0].price, 19.00, 0.0)
+        assertEquals(resultProductListFour[1].price, 19.00, 0.0)
+        assertEquals(resultProductListFour[2].price, 19.00, 0.0)
+        assertEquals(resultProductListFour[3].price, 19.00, 0.0)
+    }
+
+    @Test
+    fun testMugDiscount(){
+        val resultProductListOne = mugDiscount.applyDiscount(listOf(PRODUCT_MUG))
+        assertEquals(resultProductListOne[0].price, PRODUCT_MUG.price, 0.0)
+
+        val resultProductListTwo = mugDiscount.applyDiscount(listOf(PRODUCT_MUG, PRODUCT_MUG, PRODUCT_MUG, PRODUCT_MUG, PRODUCT_MUG))
+        assertEquals(resultProductListTwo[0].price, PRODUCT_MUG.price, 0.0)
+        assertEquals(resultProductListTwo[1].price, PRODUCT_MUG.price, 0.0)
+        assertEquals(resultProductListTwo[2].price, PRODUCT_MUG.price, 0.0)
+        assertEquals(resultProductListTwo[3].price, PRODUCT_MUG.price, 0.0)
+        assertEquals(resultProductListTwo[4].price, PRODUCT_MUG.price, 0.0)
     }
 }
