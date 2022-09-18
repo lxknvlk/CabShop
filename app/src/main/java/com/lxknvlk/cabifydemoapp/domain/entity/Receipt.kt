@@ -1,6 +1,6 @@
-package com.lxknvlk.cabifydemoapp.domain.purchase
+package com.lxknvlk.cabifydemoapp.domain.entity
 
-data class ReceiptEntity(
+data class Receipt(
     var shoppingCart: ShoppingCart,
     var orderText: String,
     var totalPrice: Double

@@ -7,12 +7,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lxknvlk.cabifydemoapp.R
-import com.lxknvlk.cabifydemoapp.domain.ProductEntity
+import com.lxknvlk.cabifydemoapp.domain.entity.Product
 
 class ProductAdapter(
-    private val productList: MutableList<ProductEntity>,
-    private val addProductCallback: (ProductEntity) -> Unit,
-    private val removeProductCallback: (ProductEntity) -> Unit,
+    private val productList: MutableList<Product>,
+    private val addProductCallback: (Product) -> Unit,
+    private val removeProductCallback: (Product) -> Unit,
 ) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
@@ -32,7 +32,7 @@ class ProductAdapter(
         }
     }
 
-    fun addItems(newProducts: List<ProductEntity>){
+    fun addItems(newProducts: List<Product>){
         productList.clear()
         productList.addAll(newProducts)
         notifyDataSetChanged()

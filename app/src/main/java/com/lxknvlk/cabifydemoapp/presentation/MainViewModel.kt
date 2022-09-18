@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lxknvlk.cabifydemoapp.domain.CheckoutUseCase
-import com.lxknvlk.cabifydemoapp.domain.GetProductsUseCase
-import com.lxknvlk.cabifydemoapp.domain.ProductEntity
-import com.lxknvlk.cabifydemoapp.domain.purchase.ShoppingCart
+import com.lxknvlk.cabifydemoapp.domain.usecases.CheckoutUseCase
+import com.lxknvlk.cabifydemoapp.domain.usecases.GetProductsUseCase
+import com.lxknvlk.cabifydemoapp.domain.entity.Product
+import com.lxknvlk.cabifydemoapp.domain.entity.ShoppingCart
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -20,8 +20,8 @@ class MainViewModel @Inject constructor(
     private val checkoutUseCase: CheckoutUseCase
 ) : ViewModel() {
 
-    private val productsMutableLiveData = MutableLiveData<List<ProductEntity>?>()
-    val productsLiveData : LiveData<List<ProductEntity>?> by this::productsMutableLiveData
+    private val productsMutableLiveData = MutableLiveData<List<Product>?>()
+    val productsLiveData : LiveData<List<Product>?> by this::productsMutableLiveData
 
     private val receiptMutableLiveData = MutableLiveData<String>()
     val receiptLiveData : LiveData<String> by this::receiptMutableLiveData
@@ -31,7 +31,7 @@ class MainViewModel @Inject constructor(
 
     fun getProducts(){
         viewModelScope.launch(coroutineDispatcherIO) {
-            val products: List<ProductEntity>? = getProductsUseCase.getProducts()
+            val products: List<Product>? = getProductsUseCase.getProducts()
 
             //simulating slower server request to show nice loading indicator
             Thread.sleep(2000)
@@ -40,11 +40,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun addProduct(product: ProductEntity){
+    fun addProduct(product: Product){
         shoppingCart.addProduct(product)
     }
 
-    fun removeProduct(product: ProductEntity){
+    fun removeProduct(product: Product){
         shoppingCart.removeProduct(product)
     }
 

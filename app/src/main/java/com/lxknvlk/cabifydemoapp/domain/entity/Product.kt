@@ -1,6 +1,6 @@
-package com.lxknvlk.cabifydemoapp.domain
+package com.lxknvlk.cabifydemoapp.domain.entity
 
-data class ProductEntity(
+data class Product(
     var code: String,
     var name: String,
     var price: Double

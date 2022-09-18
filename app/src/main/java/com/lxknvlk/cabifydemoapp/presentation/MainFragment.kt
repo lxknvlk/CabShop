@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.lxknvlk.cabifydemoapp.R
-import com.lxknvlk.cabifydemoapp.domain.ProductEntity
+import com.lxknvlk.cabifydemoapp.domain.entity.Product
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,7 +57,7 @@ class MainFragment : Fragment() {
             viewModel.checkout()
         }
 
-        viewModel.productsLiveData.observe(viewLifecycleOwner) { products: List<ProductEntity>? ->
+        viewModel.productsLiveData.observe(viewLifecycleOwner) { products: List<Product>? ->
             piLoader.visibility = View.INVISIBLE
 
             if (products == null) {
@@ -84,11 +84,11 @@ class MainFragment : Fragment() {
 
 
 
-    private fun onItemAdded(product: ProductEntity) {
+    private fun onItemAdded(product: Product) {
         viewModel.addProduct(product)
     }
 
-    private fun onItemRemoved(product: ProductEntity) {
+    private fun onItemRemoved(product: Product) {
         viewModel.removeProduct(product)
     }
 }

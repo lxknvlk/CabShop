@@ -1,7 +1,10 @@
-package com.lxknvlk.cabifydemoapp.domain.purchase
+package com.lxknvlk.cabifydemoapp.domain.utils
+
+import com.lxknvlk.cabifydemoapp.domain.entity.Receipt
+import com.lxknvlk.cabifydemoapp.domain.entity.ShoppingCart
 
 class ReceiptCreator {
-    fun createReceipt(shoppingCart: ShoppingCart): ReceiptEntity {
+    fun createReceipt(shoppingCart: ShoppingCart): Receipt {
 
         val productList = shoppingCart.getCartContents()
 
@@ -15,6 +18,6 @@ class ReceiptCreator {
 
         receiptString += "\nTotal: €$totalPrice"
 
-        return ReceiptEntity(shoppingCart, receiptString, totalPrice)
+        return Receipt(shoppingCart, receiptString, totalPrice)
     }
 }

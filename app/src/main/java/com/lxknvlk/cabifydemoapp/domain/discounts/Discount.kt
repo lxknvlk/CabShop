@@ -1,7 +1,7 @@
 package com.lxknvlk.cabifydemoapp.domain.discounts
 
-import com.lxknvlk.cabifydemoapp.domain.ProductEntity
+import com.lxknvlk.cabifydemoapp.domain.entity.Product
 
 interface Discount {
-    fun applyDiscount(productList: List<ProductEntity>): List<ProductEntity>
+    fun applyDiscount(productList: List<Product>): List<Product>
 }

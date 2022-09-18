@@ -1,8 +1,8 @@
-package com.lxknvlk.cabifydemoapp.domain
+package com.lxknvlk.cabifydemoapp.domain.usecases
 
 import com.lxknvlk.cabifydemoapp.domain.discounts.DiscountCalculator
-import com.lxknvlk.cabifydemoapp.domain.purchase.ReceiptCreator
-import com.lxknvlk.cabifydemoapp.domain.purchase.ShoppingCart
+import com.lxknvlk.cabifydemoapp.domain.utils.ReceiptCreator
+import com.lxknvlk.cabifydemoapp.domain.entity.ShoppingCart
 import javax.inject.Inject
 
 class CheckoutUseCase @Inject constructor(
