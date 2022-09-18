@@ -91,6 +91,6 @@ class DiModule {
         tShirtDiscount: TShirtDiscount,
         mugDiscount: MugDiscount
     ): DiscountCalculator{
-        return DiscountCalculator(voucherDiscount, tShirtDiscount, mugDiscount)
+        return DiscountCalculator()
     }
 }
