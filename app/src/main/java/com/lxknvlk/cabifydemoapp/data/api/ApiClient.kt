@@ -6,7 +6,7 @@ class ApiClient  @Inject constructor(
     private val apiInterface: ApiInterface
 ) {
 
-    suspend fun getProducts(): Any {
+    suspend fun getProducts(): ProductResponse? {
         try {
             val response = apiInterface.getProducts()
 
@@ -17,6 +17,6 @@ class ApiClient  @Inject constructor(
             e.printStackTrace()
         }
 
-        return "nope"
+        return null
     }
 }

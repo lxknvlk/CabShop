@@ -1,15 +1,12 @@
 package com.lxknvlk.cabifydemoapp.data.di
 
-import android.content.Context
-import androidx.room.Room
 import com.lxknvlk.cabifydemoapp.data.api.ApiClient
 import com.lxknvlk.cabifydemoapp.data.api.ApiInterface
 import com.lxknvlk.cabifydemoapp.data.api.RetrofitClient
-import com.lxknvlk.cabifydemoapp.domain.usecase.GetProductsUseCase
+import com.lxknvlk.cabifydemoapp.domain.GetProductsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
