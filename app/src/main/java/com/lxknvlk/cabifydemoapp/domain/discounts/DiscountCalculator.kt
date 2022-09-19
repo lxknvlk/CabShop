@@ -1,8 +1,6 @@
 package com.lxknvlk.cabifydemoapp.domain.discounts
 
-import com.lxknvlk.cabifydemoapp.domain.entity.Product
-import com.lxknvlk.cabifydemoapp.domain.entity.ProductCode
-import com.lxknvlk.cabifydemoapp.domain.entity.ShoppingCart
+import com.lxknvlk.cabifydemoapp.domain.entity.*
 import javax.inject.Inject
 
 class DiscountCalculator @Inject constructor(
@@ -13,15 +11,15 @@ class DiscountCalculator @Inject constructor(
     fun applyDiscounts(shoppingCart: ShoppingCart): ShoppingCart {
         val productList = shoppingCart.getCartContents()
 
-        val vouchers = mutableListOf<Product>()
-        val mugs = mutableListOf<Product>()
-        val tshirts = mutableListOf<Product>()
+        val vouchers = mutableListOf<ProductVoucher>()
+        val mugs = mutableListOf<ProductMug>()
+        val tshirts = mutableListOf<ProductTShirt>()
 
         productList.forEach {
-            when (it.code) {
-                ProductCode.VOUCHER -> vouchers.add(it)
-                ProductCode.MUG -> mugs.add(it)
-                ProductCode.TSHIRT -> tshirts.add(it)
+            when (it) {
+                is ProductVoucher -> vouchers.add(it)
+                is ProductMug -> mugs.add(it)
+                is ProductTShirt -> tshirts.add(it)
             }
         }
 

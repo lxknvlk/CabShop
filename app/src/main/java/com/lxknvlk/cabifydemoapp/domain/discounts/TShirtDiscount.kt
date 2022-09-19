@@ -1,15 +1,15 @@
 package com.lxknvlk.cabifydemoapp.domain.discounts
 
-import com.lxknvlk.cabifydemoapp.domain.entity.Product
+import com.lxknvlk.cabifydemoapp.domain.entity.ProductTShirt
 
-class TShirtDiscount: Discount {
+class TShirtDiscount: Discount<ProductTShirt> {
 
     /**
      *  If there are 3 or more tshirts, set price of all to 19.00
      */
-    override fun applyDiscount(productList: List<Product>): List<Product> {
+    override fun applyDiscount(productList: List<ProductTShirt>): List<ProductTShirt> {
         if (productList.size >= 3){
-            return productList.map { it -> Product(it.code, it.name, 19.00) }
+            return productList.map { it -> ProductTShirt(it.code, it.name, 19.00) }
         } else {
             return productList
         }

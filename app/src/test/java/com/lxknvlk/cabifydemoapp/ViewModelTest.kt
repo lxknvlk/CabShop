@@ -1,8 +1,7 @@
 package com.lxknvlk.cabifydemoapp
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.lxknvlk.cabifydemoapp.domain.entity.Product
-import com.lxknvlk.cabifydemoapp.domain.entity.ProductCode
+import com.lxknvlk.cabifydemoapp.domain.entity.*
 import com.lxknvlk.cabifydemoapp.domain.usecases.CheckoutUseCase
 import com.lxknvlk.cabifydemoapp.domain.usecases.GetProductsUseCase
 import com.lxknvlk.cabifydemoapp.presentation.MainViewModel
@@ -38,9 +37,9 @@ class ViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private val PRODUCT_VOUCHER = Product(ProductCode.VOUCHER, "VOUCHER", 5.00)
-    private val PRODUCT_TSHIRT = Product(ProductCode.TSHIRT, "TSHIRT", 20.00)
-    private val PRODUCT_MUG = Product(ProductCode.MUG, "VOUCHER", 7.50)
+    private val PRODUCT_VOUCHER = ProductVoucher(ProductCode.VOUCHER, "VOUCHER", 5.00)
+    private val PRODUCT_TSHIRT = ProductTShirt(ProductCode.TSHIRT, "TSHIRT", 20.00)
+    private val PRODUCT_MUG = ProductMug(ProductCode.MUG, "VOUCHER", 7.50)
 
 
     @Before

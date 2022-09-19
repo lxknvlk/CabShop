@@ -2,6 +2,7 @@ package com.lxknvlk.cabifydemoapp
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.lxknvlk.cabifydemoapp.data.ProductEntityMapper
 import com.lxknvlk.cabifydemoapp.data.api.ApiClient
 import com.lxknvlk.cabifydemoapp.data.api.ApiInterface
 import com.lxknvlk.cabifydemoapp.data.repository.ProductRepositoryRemoteImpl
@@ -33,6 +34,7 @@ class RemoteRepositoryTest {
 
     private lateinit var apiClient: ApiClient
     private lateinit var productRepositoryRemote: ProductRepositoryRemote
+    private lateinit var productEntityMapper: ProductEntityMapper
 
     @Before
     fun setup() {
@@ -47,7 +49,8 @@ class RemoteRepositoryTest {
 
 
         apiClient = ApiClient(apiInterface)
-        productRepositoryRemote = ProductRepositoryRemoteImpl(apiClient)
+        productEntityMapper = ProductEntityMapper()
+        productRepositoryRemote = ProductRepositoryRemoteImpl(apiClient, productEntityMapper)
     }
 
     @After

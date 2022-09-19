@@ -4,9 +4,7 @@ import com.lxknvlk.cabifydemoapp.domain.discounts.DiscountCalculator
 import com.lxknvlk.cabifydemoapp.domain.discounts.MugDiscount
 import com.lxknvlk.cabifydemoapp.domain.discounts.TShirtDiscount
 import com.lxknvlk.cabifydemoapp.domain.discounts.VoucherDiscount
-import com.lxknvlk.cabifydemoapp.domain.entity.Product
-import com.lxknvlk.cabifydemoapp.domain.entity.ProductCode
-import com.lxknvlk.cabifydemoapp.domain.entity.ShoppingCart
+import com.lxknvlk.cabifydemoapp.domain.entity.*
 import com.lxknvlk.cabifydemoapp.domain.usecases.CheckoutUseCase
 import com.lxknvlk.cabifydemoapp.domain.utils.ReceiptCreator
 import org.junit.Assert.assertEquals
@@ -27,9 +25,9 @@ class DiscountsTest {
     private lateinit var checkoutUseCase: CheckoutUseCase
     private lateinit var receiptCreator: ReceiptCreator
 
-    private val PRODUCT_VOUCHER = Product(ProductCode.VOUCHER, "VOUCHER", 5.00)
-    private val PRODUCT_TSHIRT = Product(ProductCode.TSHIRT, "TSHIRT", 20.00)
-    private val PRODUCT_MUG = Product(ProductCode.MUG, "VOUCHER", 7.50)
+    private val PRODUCT_VOUCHER = ProductVoucher(ProductCode.VOUCHER, "VOUCHER", 5.00)
+    private val PRODUCT_TSHIRT = ProductTShirt(ProductCode.TSHIRT, "TSHIRT", 20.00)
+    private val PRODUCT_MUG = ProductMug(ProductCode.MUG, "VOUCHER", 7.50)
 
     @Before
     fun setup() {

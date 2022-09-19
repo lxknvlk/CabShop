@@ -1,5 +1,6 @@
 package com.lxknvlk.cabifydemoapp.data.di
 
+import com.lxknvlk.cabifydemoapp.data.ProductEntityMapper
 import com.lxknvlk.cabifydemoapp.data.api.ApiClient
 import com.lxknvlk.cabifydemoapp.data.api.ApiInterface
 import com.lxknvlk.cabifydemoapp.data.api.RetrofitClient
@@ -40,9 +41,10 @@ class DiModule {
 
     @Provides
     fun provideProductRepositoryRemote(
-        apiClient: ApiClient
+        apiClient: ApiClient,
+        productEntityMapper: ProductEntityMapper
     ): ProductRepositoryRemote {
-        return ProductRepositoryRemoteImpl(apiClient)
+        return ProductRepositoryRemoteImpl(apiClient, productEntityMapper)
     }
 
     @Provides
@@ -75,6 +77,11 @@ class DiModule {
     @Provides
     fun provideReceiptCreator(): ReceiptCreator {
         return ReceiptCreator()
+    }
+
+    @Provides
+    fun provideProductEntityMapper(): ProductEntityMapper {
+        return ProductEntityMapper()
     }
 
     @Provides
